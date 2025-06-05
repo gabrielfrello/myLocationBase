@@ -11,11 +11,15 @@ import {
 } from "react-native-paper";
 import myColors from "./assets/colors.json";
 import myColorsDark from "./assets/colorsDark.json";
+import { initializeServices } from "./services/initServices";
 
 export default function App() {
   const [isSwitchOn, setIsSwitchOn] = useState(false); // variável para controle do darkMode
   const [isLoading, setIsLoading] = useState(false); // variável para controle do loading do button
   const [locations, setLocations] = useState(null); // variável para armazenar as localizações
+
+    initializeServices({ setIsSwitchOn, setLocations });
+
 
   // Carrega tema default da lib RN PAPER com customização das cores. Para customizar o tema, veja:
   // https://callstack.github.io/react-native-paper/docs/guides/theming/#creating-dynamic-theme-colors
