@@ -18,9 +18,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false); // variável para controle do loading do button
   const [locations, setLocations] = useState(null); // variável para armazenar as localizações
 
-    initializeServices({ setIsSwitchOn, setLocations });
-
-
   // Carrega tema default da lib RN PAPER com customização das cores. Para customizar o tema, veja:
   // https://callstack.github.io/react-native-paper/docs/guides/theming/#creating-dynamic-theme-colors
   const [theme, setTheme] = useState({
@@ -28,6 +25,10 @@ export default function App() {
     myOwnProperty: true,
     colors: myColors.colors,
   });
+
+  useEffect(() => {
+  initializeServices({ setIsSwitchOn, setLocations });
+  }, []);
 
   // load darkMode from AsyncStorage
   async function loadDarkMode() {}

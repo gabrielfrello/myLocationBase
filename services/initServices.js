@@ -8,26 +8,23 @@ export const initializeServices = ({ setIsSwitchOn, setLocations }) => {
     setIsSwitchOn(darkMode);
   };
 
-  global.onToggleSwitch = async (isSwitchOn) => {
-    await saveDarkMode(isSwitchOn);
+  global.onToggleSwitch = async (currentValue) => {
+    const newValue = !currentValue;
+    await saveDarkMode(newValue);
+    setIsSwitchOn(newValue);
   };
 
-  global.getLocation = async (setIsLoading, loadLocations) => {
-    setIsLoading(true);
+  global.getLocation = async () => {
     const coords = await getDeviceLocation();
 
     if (coords) {
       await saveLocation(coords.latitude, coords.longitude);
-      await loadLocations();
+      await global.loadLocations();
     }
-
-    setIsLoading(false);
   };
 
-  global.loadLocations = async (setIsLoading) => {
-    setIsLoading(true);
+  global.loadLocations = async () => {
     const locationsFromDB = await loadLocationsFromDB();
     setLocations(locationsFromDB);
-    setIsLoading(false);
   };
 };
